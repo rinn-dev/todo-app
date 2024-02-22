@@ -3,11 +3,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 16px;
 
     & > h2 {
       font-size: 1.5rem;
       line-height: 1.75rem;
       font-weight: 500;
+    }
+
+    @media screen and (max-width: 480px) {
+      & > h2 {
+        font-size: 1.025rem;
+      }
     }
   }
 }
