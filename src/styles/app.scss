@@ -1,0 +1,21 @@
+@use 'colors' as *;
+
+.app {
+  background-color: $gray-cloud;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__card {
+    background-color: $gray;
+    padding: 101px 60px;
+    border-radius: 20px;
+  }
+
+  &__progress {
+    margin-bottom: 32px;
+  }
+}
