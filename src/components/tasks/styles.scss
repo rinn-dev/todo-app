@@ -1,0 +1,13 @@
+.tasks {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > h2 {
+      font-size: 1.5rem;
+      line-height: 1.75rem;
+      font-weight: 500;
+    }
+  }
+}
