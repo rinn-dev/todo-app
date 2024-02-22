@@ -11,11 +11,29 @@
 
   &__card {
     background-color: $gray;
-    padding: 101px 60px;
+    padding: 60px 100px;
     border-radius: 20px;
   }
 
   &__progress {
     margin-bottom: 32px;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 20px;
+    
+    &__card {
+      width: 100%;
+      padding: 30px 40px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    padding: 16px;
+
+    &__card {
+      padding: 16px;
+      border-radius: 16px;
+    }
   }
 }
