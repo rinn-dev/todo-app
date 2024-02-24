@@ -1,5 +1,42 @@
 @use 'src/styles/colors' as *;
 
 .task {
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-radius: 50px;
+  background-color: $white;
+  box-shadow: 0px 0px 20px 0px #00000008;
+  padding: 12px 20px;
+
+  &__info {
+    & > span {
+      font-size: 1rem;
+      line-height: 1.125rem;
+      color: $jet;
+    }
+
+    & > .completed {
+      color: $gray-granite;
+      text-decoration: line-through;
+    }
+  }
+
+  &__actions {
+     position: relative;
+
+     &__trigger {
+      background-color: transparent;
+      border: none;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:focus {
+        outline: none;
+      }
+     }
+  }
 }

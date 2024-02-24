@@ -33,7 +33,7 @@ export const Select: FC<SelectProps> = ({
         className="select__trigger"
       >
         <span>{value ?? placeholder ?? 'Select'}</span>
-        <img src={ChevronDown} alt="chevron down" />
+        <img width={14} height={14} src={ChevronDown} alt="chevron down" />
       </button>
       <RenderIf condition={isOpen}>
         <div className="select__list">
