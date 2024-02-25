@@ -34,6 +34,15 @@ export const todoApi = api.injectEndpoints({
       },
       invalidatesTags: [TODO],
     }),
+    deleteTodo: builder.mutation<void, string>({
+      query: (id) => {
+        return {
+          url: `${TODO_ENDPOINT}/${id}`,
+          method: 'DELETE',
+        };
+      },
+      invalidatesTags: [TODO],
+    }),
   }),
   overrideExisting: false,
 });
@@ -42,4 +51,5 @@ export const {
   useGetTodosQuery,
   useSetStatusMutation,
   useUpdateTitleMutation,
+  useDeleteTodoMutation,
 } = todoApi;
