@@ -24,10 +24,10 @@ const baseQuery = (): CustomBaseQuery => async (requestOpts) => {
       ...requestOpts,
       baseURL,
     });
-    return { data: result.data.data };
+    return { data: result.data };
   } catch (error) {
     const axiosError = error as AxiosError;
-    return { error: axiosError.response || axiosError };
+    return { error: axiosError.response ?? axiosError };
   }
 };
 

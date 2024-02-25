@@ -4,34 +4,22 @@ import { Select } from '../select/Select';
 import { taskStatuses } from '../../constants/tasks-status';
 import { Task } from './Task';
 import { Modal } from '../modal/Modal';
+import { useGetTodosQuery } from '../../services/todo';
+import { RenderIf } from '../utils/RenderIf';
+import { Skeleton } from './Skeleton';
 
 interface TasksProps {}
-
-const tasks = [
-  {
-    id: '5fe3f4ca-193c-4170-83c1-cb5a19908601',
-    title: 'Buy food for dinner',
-    completed: true,
-  },
-  {
-    id: 'f619466c-a016-4281-b584-7db2795d103d',
-    title: 'Call Marie at 10.00 PM',
-    completed: false,
-  },
-  {
-    id: '5fe3f4ca-193c-4170-83c1-cb5a19908602',
-    title: 'Write a react blog post',
-    completed: false,
-  },
-];
 
 export const Tasks: FC<TasksProps> = () => {
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [deletedId, setDeletedId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const { data: tasks = [], isFetching, isSuccess } = useGetTodosQuery();
+
   const taskTobeDeleted = useMemo(
     () => tasks.find((task) => task.id === deletedId),
-    [deletedId]
+    [deletedId, tasks]
   );
 
   const initDelete = (id: string) => {
@@ -53,7 +41,7 @@ export const Tasks: FC<TasksProps> = () => {
       default:
         return tasks;
     }
-  }, [filterStatus]);
+  }, [filterStatus, tasks]);
 
   return (
     <div className="tasks">
@@ -66,9 +54,16 @@ export const Tasks: FC<TasksProps> = () => {
         />
       </div>
       <div className="tasks__list">
-        {filteredTasks.map((task) => (
-          <Task {...task} key={task.id} initDelete={initDelete} />
-        ))}
+        <RenderIf condition={isFetching}>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <Skeleton key={index} />
+          ))}
+        </RenderIf>
+        <RenderIf condition={isSuccess}>
+          {filteredTasks.map((task) => (
+            <Task {...task} key={task.id} initDelete={initDelete} />
+          ))}
+        </RenderIf>
       </div>
       <Modal
         isOpen={isModalOpen}
