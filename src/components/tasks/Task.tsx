@@ -7,7 +7,10 @@ import { useClickAway } from '../../hooks/useClickAway';
 import Dots from '../../icons/dots.svg';
 import './task.scss';
 import { useFloating } from '../../hooks/useFloating';
-import { useSetStatusMutation } from '../../services/todo';
+import {
+  useSetStatusMutation,
+  useUpdateTitleMutation,
+} from '../../services/todo';
 
 interface TaskProps {
   id: string;
@@ -23,14 +26,15 @@ export const Task: FC<TaskProps> = ({ title, completed, initDelete, id }) => {
   const [taskTitle, setTaskTitle] = useState<string>(title);
   const { refs, floatingStyles } = useFloating();
   const [setStatus] = useSetStatusMutation();
+  const [updateTitle] = useUpdateTitleMutation();
 
   const handleOutsideClick = () => {
     setIsActionsOpen(false);
   };
   const ref = useClickAway<HTMLDivElement>({ callback: handleOutsideClick });
 
-  const handleSave = () => {
-    // Perform save logic
+  const handleSave = async () => {
+    await updateTitle({ id, title: taskTitle });
     setIsEditing(false);
   };
 
