@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { Checkbox } from '../checkbox/Checkbox';
 import { RenderIf } from '../utils/RenderIf';
 import { Actions } from './Actions';
+import { useClickAway } from '../../hooks/useClickAway';
 
 interface TaskProps {
   id: string;
@@ -16,6 +17,11 @@ export const Task: FC<TaskProps> = ({ title, completed }) => {
   const [isCompleted, setIsCompleted] = useState<boolean>(completed);
   const [isActionsOpen, setIsActionsOpen] = useState<boolean>(false);
 
+  const handleOutsideClick = () => {
+    setIsActionsOpen(false);
+  };
+  const ref = useClickAway<HTMLDivElement>({ callback: handleOutsideClick });
+
   return (
     <div className="task">
       <div className="task__info">
@@ -25,7 +31,7 @@ export const Task: FC<TaskProps> = ({ title, completed }) => {
         />
         <span className={classNames({ completed: isCompleted })}>{title}</span>
       </div>
-      <div className="task__actions">
+      <div ref={ref} className="task__actions">
         <button
           type="button"
           role="menu"

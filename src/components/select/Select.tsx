@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import ChevronDown from '../../icons/chevron-down.svg';
 import { RenderIf } from '../utils/RenderIf';
 import './styles.scss';
+import { useClickAway } from '../../hooks/useClickAway';
 
 export interface SelectOption {
   title: string;
@@ -24,9 +25,13 @@ export const Select: FC<SelectProps> = ({
   onChange,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const handleOutsideClick = () => {
+    setIsOpen(false);
+  };
+  const ref = useClickAway<HTMLDivElement>({ callback: handleOutsideClick });
 
   return (
-    <div className="select">
+    <div ref={ref} className="select">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
