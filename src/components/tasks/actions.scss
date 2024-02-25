@@ -1,0 +1,43 @@
+@use 'src/styles/colors' as *;
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  row-gap: 16px;
+  min-width: 111px;
+
+  position: absolute;
+  top: 28px;
+  right: 0px;
+  padding: 16px 20px;
+  box-shadow: 0px 0px 8px 0px #0000001A;
+  border-radius: 10px;
+  background-color: $white;
+  z-index: 1;
+
+  &__item {
+    color: $jet;
+    color: 0.875rem;
+    border: none;
+    background: transparent;
+    text-align: left;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__item-delete {
+    color: $pink-red;
+  }
+
+  @media screen and (max-width: 480px){
+    min-width: 80px;
+    padding: 12px 14px;
+  }
+}
