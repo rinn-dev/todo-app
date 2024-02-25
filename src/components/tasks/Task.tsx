@@ -7,6 +7,7 @@ import { useClickAway } from '../../hooks/useClickAway';
 import Dots from '../../icons/dots.svg';
 import './task.scss';
 import { useFloating } from '../../hooks/useFloating';
+import { useSetStatusMutation } from '../../services/todo';
 
 interface TaskProps {
   id: string;
@@ -21,6 +22,7 @@ export const Task: FC<TaskProps> = ({ title, completed, initDelete, id }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [taskTitle, setTaskTitle] = useState<string>(title);
   const { refs, floatingStyles } = useFloating();
+  const [setStatus] = useSetStatusMutation();
 
   const handleOutsideClick = () => {
     setIsActionsOpen(false);
@@ -36,14 +38,17 @@ export const Task: FC<TaskProps> = ({ title, completed, initDelete, id }) => {
     initDelete(id);
   };
 
+  const toggleTaskStatus = async () => {
+    const completed = !isCompleted;
+    setIsCompleted(completed);
+    await setStatus({ id, completed });
+  };
+
   return (
     <div className="task">
       <div className="task__info">
         <RenderIf condition={!isEditing}>
-          <Checkbox
-            isChecked={isCompleted}
-            onChange={() => setIsCompleted(!isCompleted)}
-          />
+          <Checkbox isChecked={isCompleted} onChange={toggleTaskStatus} />
         </RenderIf>
         <RenderIf condition={!isEditing}>
           <span className={classNames({ completed: isCompleted })}>
