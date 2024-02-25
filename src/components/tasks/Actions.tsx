@@ -3,9 +3,10 @@ import './actions.scss';
 
 interface ActionsProps {
   setIsEditing: Dispatch<SetStateAction<boolean>>;
+  handleDelete: () => void;
 }
 
-export const Actions: FC<ActionsProps> = ({ setIsEditing }) => {
+export const Actions: FC<ActionsProps> = ({ setIsEditing, handleDelete }) => {
   return (
     <div className="actions">
       <button
@@ -15,7 +16,13 @@ export const Actions: FC<ActionsProps> = ({ setIsEditing }) => {
       >
         Edit
       </button>
-      <button className="actions__item actions__item-delete">Delete</button>
+      <button
+        type="button"
+        onClick={() => handleDelete()}
+        className="actions__item actions__item-delete"
+      >
+        Delete
+      </button>
     </div>
   );
 };

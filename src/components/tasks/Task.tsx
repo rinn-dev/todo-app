@@ -1,19 +1,20 @@
 import { useState, type FC } from 'react';
-import Dots from '../../icons/dots.svg';
-import './task.scss';
 import classNames from 'classnames';
 import { Checkbox } from '../checkbox/Checkbox';
 import { RenderIf } from '../utils/RenderIf';
 import { Actions } from './Actions';
 import { useClickAway } from '../../hooks/useClickAway';
+import Dots from '../../icons/dots.svg';
+import './task.scss';
 
 interface TaskProps {
   id: string;
   title: string;
   completed: boolean;
+  initDelete: (id: string) => void;
 }
 
-export const Task: FC<TaskProps> = ({ title, completed }) => {
+export const Task: FC<TaskProps> = ({ title, completed, initDelete, id }) => {
   const [isCompleted, setIsCompleted] = useState<boolean>(completed);
   const [isActionsOpen, setIsActionsOpen] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -27,6 +28,10 @@ export const Task: FC<TaskProps> = ({ title, completed }) => {
   const handleSave = () => {
     // Perform save logic
     setIsEditing(false);
+  };
+
+  const handleDelete = () => {
+    initDelete(id);
   };
 
   return (
@@ -63,7 +68,7 @@ export const Task: FC<TaskProps> = ({ title, completed }) => {
             <img width={24} height={24} src={Dots} alt="dots" />
           </button>
           <RenderIf condition={isActionsOpen}>
-            <Actions setIsEditing={setIsEditing} />
+            <Actions setIsEditing={setIsEditing} handleDelete={handleDelete} />
           </RenderIf>
         </RenderIf>
         <RenderIf condition={isEditing}>
