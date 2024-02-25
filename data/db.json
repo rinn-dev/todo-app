@@ -14,6 +14,11 @@
       "id": "5fe3f4ca-193c-4170-83c1-cb5a19908602",
       "title": "Write a react blog post",
       "completed": true
+    },
+    {
+      "id": "9b26",
+      "title": "Add setup docs",
+      "completed": false
     }
   ]
 }
