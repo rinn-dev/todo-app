@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useState, type FC, ChangeEvent } from 'react';
 import './task-input.scss';
 import { useCreateTodoMutation } from '../../services/todo';
 import { RenderIf } from '../utils/RenderIf';
@@ -8,16 +8,23 @@ export const TaskInput: FC = () => {
   const [isRequiredError, setIsRequiredError] = useState<boolean>(false);
   const [title, setTitle] = useState<string>('');
 
-  const handleSumit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSumit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const value = title.trim();
 
     if (value) {
-      createTodo(value);
-      setIsRequiredError(false);
+      await createTodo(value);
       setTitle('');
     } else {
       setIsRequiredError(true);
+    }
+  };
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setTitle(value);
+    if (value) {
+      setIsRequiredError(false);
     }
   };
 
@@ -30,7 +37,7 @@ export const TaskInput: FC = () => {
           placeholder="Add your todo..."
           className="task-input__input"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={handleTitleChange}
         />
         <button type="submit" className="task-input__submit">
           Add
