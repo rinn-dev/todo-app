@@ -44,6 +44,17 @@ export const Tasks: FC<TasksProps> = () => {
     setIsModalOpen(false);
   };
 
+  const filteredTasks = useMemo(() => {
+    switch (filterStatus) {
+      case 'done':
+        return tasks.filter((task) => task.completed);
+      case 'undone':
+        return tasks.filter((task) => !task.completed);
+      default:
+        return tasks;
+    }
+  }, [filterStatus]);
+
   return (
     <div className="tasks">
       <div className="tasks__header">
@@ -55,7 +66,7 @@ export const Tasks: FC<TasksProps> = () => {
         />
       </div>
       <div className="tasks__list">
-        {tasks.map((task) => (
+        {filteredTasks.map((task) => (
           <Task {...task} key={task.id} initDelete={initDelete} />
         ))}
       </div>
