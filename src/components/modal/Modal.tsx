@@ -47,7 +47,6 @@ export const Modal: FC<ModalProps> = ({
 
   const handleAnimationEnd = () => {
     const dialog = modalRef.current!;
-    console.log({ isOpen });
     if (!isOpen) dialog.close();
   };
 
