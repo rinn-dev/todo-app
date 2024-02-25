@@ -23,6 +23,9 @@
   &__list {
     display: flex;
     flex-direction: column;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
 
     row-gap: 16px;
   }
