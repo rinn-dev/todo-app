@@ -6,6 +6,7 @@ import { Actions } from './Actions';
 import { useClickAway } from '../../hooks/useClickAway';
 import Dots from '../../icons/dots.svg';
 import './task.scss';
+import { useFloating } from '../../hooks/useFloating';
 
 interface TaskProps {
   id: string;
@@ -19,6 +20,7 @@ export const Task: FC<TaskProps> = ({ title, completed, initDelete, id }) => {
   const [isActionsOpen, setIsActionsOpen] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [taskTitle, setTaskTitle] = useState<string>(title);
+  const { refs, floatingStyles } = useFloating();
 
   const handleOutsideClick = () => {
     setIsActionsOpen(false);
@@ -62,13 +64,19 @@ export const Task: FC<TaskProps> = ({ title, completed, initDelete, id }) => {
           <button
             type="button"
             role="menu"
+            ref={refs.setReference}
             onClick={() => setIsActionsOpen(!isActionsOpen)}
             className="task__actions__trigger"
           >
             <img width={24} height={24} src={Dots} alt="dots" />
           </button>
           <RenderIf condition={isActionsOpen}>
-            <Actions setIsEditing={setIsEditing} handleDelete={handleDelete} />
+            <Actions
+              ref={refs.setFloating}
+              setIsEditing={setIsEditing}
+              handleDelete={handleDelete}
+              floatingStyles={floatingStyles}
+            />
           </RenderIf>
         </RenderIf>
         <RenderIf condition={isEditing}>
