@@ -10,6 +10,10 @@
   border: 2px solid $indigo;
   background-color: transparent;
 
+  &__check {
+    user-select: none;
+  }
+
   &:focus {
     outline: none;
   }
