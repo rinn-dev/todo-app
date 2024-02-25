@@ -4,7 +4,7 @@ import { Select } from '../select/Select';
 import { taskStatuses } from '../../constants/tasks-status';
 import { Task } from './Task';
 import { Modal } from '../modal/Modal';
-import { useGetTodosQuery } from '../../services/todo';
+import { useDeleteTodoMutation, useGetTodosQuery } from '../../services/todo';
 import { RenderIf } from '../utils/RenderIf';
 import { Skeleton } from './Skeleton';
 
@@ -14,6 +14,7 @@ export const Tasks: FC<TasksProps> = () => {
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [deletedId, setDeletedId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [deleteTodo] = useDeleteTodoMutation();
 
   const { data: tasks = [], isFetching, isSuccess } = useGetTodosQuery();
 
@@ -27,9 +28,12 @@ export const Tasks: FC<TasksProps> = () => {
     setIsModalOpen(true);
   };
 
-  const handleConfirmDelete = () => {
-    console.log('Deleting task with id:', deletedId);
-    setIsModalOpen(false);
+  const handleConfirmDelete = async () => {
+    if (deletedId) {
+      await deleteTodo(deletedId);
+      setIsModalOpen(false);
+      setDeletedId(null);
+    }
   };
 
   const filteredTasks = useMemo(() => {
