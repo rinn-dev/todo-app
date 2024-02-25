@@ -43,12 +43,23 @@ export const todoApi = api.injectEndpoints({
       },
       invalidatesTags: [TODO],
     }),
+    createTodo: builder.mutation<void, string>({
+      query: (title: string) => {
+        return {
+          url: `${TODO_ENDPOINT}`,
+          method: 'POST',
+          data: { title, completed: false },
+        };
+      },
+      invalidatesTags: [TODO],
+    }),
   }),
   overrideExisting: false,
 });
 
 export const {
   useGetTodosQuery,
+  useCreateTodoMutation,
   useSetStatusMutation,
   useUpdateTitleMutation,
   useDeleteTodoMutation,
