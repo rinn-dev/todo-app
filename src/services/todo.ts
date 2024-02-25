@@ -14,8 +14,18 @@ export const todoApi = api.injectEndpoints({
       },
       providesTags: [TODO],
     }),
+    setStatus: builder.mutation<Todo, { id: string; completed: boolean }>({
+      query: ({ id, completed }) => {
+        return {
+          url: `${TODO_ENDPOINT}/${id}`,
+          method: 'PATCH',
+          data: { completed },
+        };
+      },
+      invalidatesTags: [TODO],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetTodosQuery } = todoApi;
+export const { useGetTodosQuery, useSetStatusMutation } = todoApi;
