@@ -1,4 +1,5 @@
 import { Progress } from '../components/progress/Progress';
+import { TaskInput } from '../components/tasks/TaskInput';
 import { Tasks } from '../components/tasks/Tasks';
 import '../styles/app.scss';
 
@@ -12,6 +13,7 @@ export const AppIndex = () => {
         <div className="app__tasks">
           <Tasks />
         </div>
+        <TaskInput />
       </div>
     </main>
   );
