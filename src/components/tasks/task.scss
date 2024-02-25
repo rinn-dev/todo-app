@@ -26,6 +26,16 @@
       color: $gray-granite;
       text-decoration: line-through;
     }
+
+    &__input {
+      border: none;
+      font-size: 1rem;
+      line-height: 1.125rem;
+
+      &:focus {
+        outline: none;
+      }
+    }
   }
 
   &__actions {
@@ -41,6 +51,20 @@
 
       &:focus {
         outline: none;
+      }
+     }
+
+     &__save {
+      border: none;
+      background-color: $indigo;
+      color: $white;
+      padding: 10px 16px;
+      font-size: 0.875rem;
+      line-height: 1rem;
+      border-radius: 50px;
+
+      &:hover {
+        cursor: pointer;
       }
      }
   }
