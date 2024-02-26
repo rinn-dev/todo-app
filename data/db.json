@@ -6,18 +6,18 @@
       "completed": true
     },
     {
-      "id": "f619466c-a016-4281-b584-7db2795d103d",
-      "title": "Call Marie at 10.00 AM",
-      "completed": true
-    },
-    {
       "id": "5fe3f4ca-193c-4170-83c1-cb5a19908602",
       "title": "Write a react blog post",
-      "completed": true
+      "completed": false
     },
     {
       "id": "9b26",
       "title": "Add setup docs",
+      "completed": true
+    },
+    {
+      "id": "52a1",
+      "title": "Clean up ui",
       "completed": false
     }
   ]

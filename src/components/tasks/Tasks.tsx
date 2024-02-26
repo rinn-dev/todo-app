@@ -7,6 +7,7 @@ import { Modal } from '../modal/Modal';
 import { useDeleteTodoMutation, useGetTodosQuery } from '../../services/todo';
 import { RenderIf } from '../utils/RenderIf';
 import { Skeleton } from './Skeleton';
+import { AxiosError } from 'axios';
 
 interface TasksProps {}
 
@@ -14,9 +15,15 @@ export const Tasks: FC<TasksProps> = () => {
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [deletedId, setDeletedId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [deleteTodo] = useDeleteTodoMutation();
+  const [deleteTodo, { isLoading }] = useDeleteTodoMutation();
 
-  const { data: tasks = [], isFetching, isSuccess } = useGetTodosQuery();
+  const {
+    data: tasks = [],
+    isFetching,
+    isSuccess,
+    isError,
+    error,
+  } = useGetTodosQuery();
 
   const taskTobeDeleted = useMemo(
     () => tasks.find((task) => task.id === deletedId),
@@ -58,15 +65,34 @@ export const Tasks: FC<TasksProps> = () => {
         />
       </div>
       <div className="tasks__list">
-        <RenderIf condition={isFetching}>
+        <RenderIf condition={isFetching && !isSuccess}>
           {Array.from({ length: 3 }).map((_, index) => (
             <Skeleton key={index} />
           ))}
         </RenderIf>
-        <RenderIf condition={isSuccess && !isFetching}>
+        <RenderIf condition={isSuccess}>
           {filteredTasks.map((task) => (
             <Task {...task} key={task.id} initDelete={initDelete} />
           ))}
+        </RenderIf>
+        <RenderIf condition={isSuccess && !filteredTasks.length}>
+          <p className="tasks__list__warning">
+            <RenderIf condition={filterStatus === 'all'}>
+              No tasks found. Try adding a new todo.
+            </RenderIf>
+            <RenderIf condition={filterStatus === 'undone'}>
+              Congrats! No uncompleted task found.
+            </RenderIf>
+            <RenderIf condition={filterStatus === 'done'}>
+              Try to complete some tasks.
+            </RenderIf>
+          </p>
+        </RenderIf>
+        <RenderIf condition={isError}>
+          <p className="tasks__list__warning">
+            {(error as AxiosError)?.message}: Failed to fetch tasks.
+            <br /> Please check your internet connection or api endpoint.
+          </p>
         </RenderIf>
       </div>
       <Modal
@@ -93,7 +119,7 @@ export const Tasks: FC<TasksProps> = () => {
               onClick={handleConfirmDelete}
               className="tasks__confirmation__actions__confirm"
             >
-              Delete
+              {isLoading ? 'Deleting' : 'Delete'}
             </button>
           </div>
         </div>

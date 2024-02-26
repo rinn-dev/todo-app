@@ -2,8 +2,6 @@
 
 ![Preview image](https://github.com/rinn-dev/todo-app/blob/main/preview.png)
 
-[Demo Here](https://rinn-todo-app.vercel.app/)
-
 This Todo App is a modern, responsive task management application built with React, utilizing React Hooks and custom hooks for reusable UI logic, RTK Query for efficient data fetching and mutations, and TypeScript for type safety and developer experience. It's designed to help you manage your daily tasks with ease, offering functionalities to add, edit, delete, and mark tasks as done. The application is also designed to be responsive, ensuring a seamless user experience across all devices.
 
 ## Installation
