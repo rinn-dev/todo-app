@@ -1,0 +1,93 @@
+@use 'src/styles/colors' as *;
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-radius: 50px;
+  background-color: $white;
+  box-shadow: 0px 0px 20px 0px #00000008;
+  padding: 12px 20px;
+  column-gap: 10px;
+
+  &__info {
+    display: flex;
+    column-gap: 16px;
+    align-items: center;
+    width: 100%;
+
+    & > span {
+      font-size: 1rem;
+      line-height: 1.125rem;
+      color: $jet;
+    }
+
+    & > .completed {
+      color: $gray-granite;
+      text-decoration: line-through;
+    }
+
+    &__input {
+      border: none;
+      font-size: 1rem;
+      line-height: 1.125rem;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &__actions {
+     position: relative;
+
+     &__trigger {
+      background-color: transparent;
+      border: none;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:focus {
+        outline: none;
+      }
+     }
+
+     &__save {
+      border: none;
+      background-color: $indigo;
+      color: $white;
+      padding: 10px 16px;
+      font-size: 0.875rem;
+      line-height: 1rem;
+      border-radius: 50px;
+
+      &:hover {
+        cursor: pointer;
+      }
+     }
+  }
+
+  @media screen and (max-width: 480px) {
+    &__info {
+       & > span {
+        font-size: 0.825rem;
+        line-height: 1rem;
+       }
+    }
+
+    &__actions {
+      position: relative;
+ 
+      &__trigger {
+        & > img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+   }
+  }
+}
