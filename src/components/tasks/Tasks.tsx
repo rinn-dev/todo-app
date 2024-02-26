@@ -63,7 +63,7 @@ export const Tasks: FC<TasksProps> = () => {
             <Skeleton key={index} />
           ))}
         </RenderIf>
-        <RenderIf condition={isSuccess}>
+        <RenderIf condition={isSuccess && !isFetching}>
           {filteredTasks.map((task) => (
             <Task {...task} key={task.id} initDelete={initDelete} />
           ))}
