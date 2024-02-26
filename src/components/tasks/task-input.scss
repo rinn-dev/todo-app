@@ -49,3 +49,11 @@
     }
   }
 }
+
+.task-input-error {
+  color: $pink-red;
+  display: block;
+  font-size: 0.825rem;
+  line-height: 1.25rem;
+  margin-top: 8px;
+}
