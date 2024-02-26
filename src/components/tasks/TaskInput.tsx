@@ -13,8 +13,8 @@ export const TaskInput: FC = () => {
     const value = title.trim();
 
     if (value) {
-      await createTodo(value);
       setTitle('');
+      await createTodo(value);
     } else {
       setIsRequiredError(true);
     }
