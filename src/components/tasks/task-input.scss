@@ -1,0 +1,59 @@
+@use '../../styles/colors' as *;
+
+.task-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 16px;
+  margin-top: 16px;
+
+  &__input {
+    width: 100%;
+    border: none;
+    box-shadow: 0px 0px 20px 0px #00000008;
+    background: $white;
+    padding: 14px 20px;
+    border-radius: 50px;
+    font-size: 1rem;
+    line-height: 1.125rem;
+    color: $jet;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: $gray-light;
+    }
+  }
+
+  &__submit {
+    display: none;
+  }
+
+  @media screen and (max-width: 1024px) {
+    &__submit {
+      display: block;
+      background-color: $indigo;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 24px;
+      font-size: 0.825rem;
+      color: $white;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    &__input {
+      font-size: 0.825rem;
+    }
+  }
+}
+
+.task-input-error {
+  color: $pink-red;
+  display: block;
+  font-size: 0.825rem;
+  line-height: 1.25rem;
+  margin-top: 8px;
+}
